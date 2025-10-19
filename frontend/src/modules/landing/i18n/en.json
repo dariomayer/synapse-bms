@@ -1,0 +1,97 @@
+{
+  "hero": {
+    "badge": "Smart Building Cloud Platform",
+    "title": "Synapse Building Cloud",
+    "subtitle": "Monitor, simulate and control BACnet, KNX, Modbus and MQTT devices",
+    "description": "Modular full-stack platform that bridges traditional Building Management Systems with modern cloud technologies. Real-time visualization, device control and 3D digital twin.",
+    "cta": {
+      "github": "View on GitHub",
+      "discover": "Discover More"
+    }
+  },
+  "features": {
+    "title": "Key Features",
+    "subtitle": "Everything you need to manage smart buildings the modern way",
+    "items": {
+      "gateway": {
+        "title": "Multi-Protocol Gateway",
+        "description": "Native support for BACnet/IP, Modbus TCP, KNX (simulated or live) with extensible integrations"
+      },
+      "dashboard": {
+        "title": "Real-Time Dashboard",
+        "description": "Visualize, control and trend building points in real time"
+      },
+      "digitalTwin": {
+        "title": "3D Digital Twin",
+        "description": "Interactive floor plan built with React and Three.js for immersive visualizations"
+      },
+      "mqtt": {
+        "title": "MQTT / REST API Layer",
+        "description": "IoT and cloud integration via REST API and MQTT messaging"
+      },
+      "rbac": {
+        "title": "Role-Based Access Control",
+        "description": "Secure authentication and authorization via BetterAuth"
+      },
+      "docker": {
+        "title": "Docker-Ready",
+        "description": "Easily deploy on CapRover or local environment with Docker Compose"
+      }
+    }
+  },
+  "protocols": {
+    "title": "Supported Protocols",
+    "subtitle": "Native connectivity with major building automation protocols",
+    "items": {
+      "bacnet": "Building Automation Standard",
+      "modbus": "Universal Industrial Protocol",
+      "knx": "Home & Building Standard",
+      "mqtt": "IoT & Cloud Integration"
+    }
+  },
+  "roadmap": {
+    "title": "Development Roadmap",
+    "subtitle": "Planned milestones to bring the platform to the next level",
+    "items": {
+      "phase1": {
+        "title": "Core Platform & Visual Dashboard",
+        "description": "Base UI, authentication, device management and real-time dashboard"
+      },
+      "phase2": {
+        "title": "BACnet Integration",
+        "description": "Complete BACnet/IP gateway with discovery, point read/write and trending"
+      },
+      "phase3": {
+        "title": "Modbus & KNX Gateway",
+        "description": "Support for Modbus TCP and KNX protocol with device simulators"
+      },
+      "phase4": {
+        "title": "Digital Twin Visualization",
+        "description": "Interactive 3D visualization with Three.js and real-time data representation"
+      },
+      "phase5": {
+        "title": "Cloud Integration & Analytics",
+        "description": "InfluxDB for historical data, Grafana for analytics and production-ready deployment"
+      }
+    }
+  },
+  "techStack": {
+    "title": "Tech Stack",
+    "subtitle": "Built with modern web technologies for scalability and maintainability",
+    "categories": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "protocols": "Protocols",
+      "visualization": "Visualization",
+      "ui": "UI & Styling",
+      "deployment": "Deployment"
+    }
+  },
+  "cta": {
+    "title": "Start Building",
+    "subtitle": "Contribute to the project or use it as a foundation for your building automation system",
+    "github": "Explore the Code",
+    "documentation": "Read Documentation",
+    "footer": "Built by Dario Pratola • Open Source MIT License"
+  }
+}

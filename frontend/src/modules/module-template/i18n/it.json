@@ -1,0 +1,6 @@
+{
+  "title": "Il tuo Modulo",
+  "welcome": "Benvenuto nella pagina del tuo modulo",
+  "description": "Questo è un modulo template che dimostra i18n per-modulo con lazy loading.",
+  "cta": "Inizia"
+}

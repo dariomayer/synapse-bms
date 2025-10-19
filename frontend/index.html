@@ -1,0 +1,65 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Synapse BMS</title>
+    <script>
+      // Applica il tema prima del render per evitare FOUC
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored === 'dark' || stored === 'light' ? stored : (prefersDark ? 'dark' : 'light');
+          if (theme === 'dark') document.documentElement.classList.add('dark');
+          else document.documentElement.classList.remove('dark');
+        } catch (e) {}
+      })();
+
+      // Genera favicon da emoji (es. 🚀) per compatibilità cross-browser
+      (function setEmojiFavicon(emoji) {
+        try {
+          var size = 64; // dimensione icona
+          var canvas = document.createElement('canvas');
+          canvas.width = size;
+          canvas.height = size;
+          var ctx = canvas.getContext('2d');
+          if (!ctx) return;
+
+          // Sfondo trasparente per adattarsi a light/dark
+          ctx.clearRect(0, 0, size, size);
+
+          // Imposta font compatibile con emoji colore
+          var fontSize = 52; // leggermente minore di size per padding
+          ctx.font = fontSize + 'px system-ui, -apple-system, Segoe UI Emoji, Apple Color Emoji, Segoe UI Symbol, Noto Color Emoji';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+
+          // Disegna l'emoji centrata
+          ctx.fillText(emoji, size / 2, size / 2);
+
+          // Converte in PNG data URL
+          var url = canvas.toDataURL('image/png');
+
+          // Trova o crea il tag <link rel="icon">
+          var link = document.querySelector('link[rel="icon"]');
+          if (!link) {
+            link = document.createElement('link');
+            link.rel = 'icon';
+            document.head.appendChild(link);
+          }
+          link.type = 'image/png';
+          link.href = url;
+        } catch (e) {
+          // In caso di errore resta il favicon statico (fallback)
+        }
+      })('🌐');
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

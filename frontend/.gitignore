@@ -1,0 +1,15 @@
+# .gitignore
+node_modules
+.DS_Store
+.dist
+/dist
+.vscode
+.env*
+
+# TypeScript build artifacts
+*.tsbuildinfo
+src/**/*.js
+src/**/*.d.ts
+!src/**/*.config.js
+!vite.config.js
+!tailwind.config.js
