@@ -82,8 +82,11 @@ read -p "Inserisci il messaggio di commit: " commit_msg
 final_commit_msg="${commit_type}: ${commit_msg}"
 
 # Aggiunge e committa i file modificati
-git add .
-git commit -m "$final_commit_msg"
+git add -A
+if ! git commit -m "$final_commit_msg"; then
+    printf "%b\n" "${YELLOW}Nessuna modifica da committare o commit fallito.${NC}"
+    exit 1
+fi
 
 # Chiede all'utente su quale branch pushare
 printf "%b\n" "${YELLOW}Su quale branch vuoi pushare? (default: develop)${NC}"

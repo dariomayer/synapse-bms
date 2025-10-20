@@ -77,3 +77,4 @@ storybook-static/
 *.tar
 *.tar.gz
 
+private/

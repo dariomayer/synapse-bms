@@ -78,7 +78,7 @@ This project leverages modern web technologies to build a fast, scalable, and ma
 - **Node.js + TypeScript** — typed runtime for reliability and maintainability
 - **Express** — REST services
 - **WebSocket** — real-time data streaming
-- **MongoDB** — device/points/config storage
+- **PostgreSQL** — device/points/config storage
 
 ### Protocols & Messaging
 - **BACnet/IP** via `node-bacstack`

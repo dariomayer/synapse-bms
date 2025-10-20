@@ -6,7 +6,7 @@ export function techStackData(): Technology[] {
   return [
     {
       category: i18next.t('landing:techStack.categories.backend'),
-      items: ['Node.js', 'TypeScript', 'Express', 'WebSocket', 'MongoDB'],
+      items: ['Node.js', 'TypeScript', 'Express', 'WebSocket', 'PostgreSQL'],
     },
     {
       category: i18next.t('landing:techStack.categories.frontend'),

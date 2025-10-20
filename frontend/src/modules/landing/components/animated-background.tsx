@@ -4,10 +4,12 @@ import { motion } from 'framer-motion'
 export function AnimatedBackground() {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5 dark:to-primary/3" />
+      {/* Base gradient con tocco di colore */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/[0.08] dark:to-secondary/[0.05]" />
 
+      {/* Grid pattern minimal */}
       <div
-        className="absolute inset-0 opacity-[0.015] dark:opacity-[0.025]"
+        className="absolute inset-0 opacity-[0.025] dark:opacity-[0.035]"
         style={{
           backgroundImage: `
             linear-gradient(to right, currentColor 1px, transparent 1px),
@@ -17,35 +19,53 @@ export function AnimatedBackground() {
         }}
       />
 
+      {/* Blob rosso-arancio top-right */}
       <motion.div
-        className="absolute top-1/4 right-1/4 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-primary/8 to-primary/3 dark:from-primary/5 dark:to-primary/2 blur-3xl"
+        className="absolute top-[15%] right-[10%] h-[600px] w-[600px] rounded-full bg-gradient-to-br from-secondary/[0.12] via-secondary/[0.06] to-transparent dark:from-secondary/[0.08] dark:via-secondary/[0.04] blur-3xl"
         animate={{
-          y: [0, -30, 0],
-          x: [0, 20, 0],
-          scale: [1, 1.1, 1],
+          y: [0, -40, 0],
+          x: [0, 30, 0],
+          scale: [1, 1.08, 1],
         }}
         transition={{
-          duration: 25,
+          duration: 28,
           repeat: Infinity,
           ease: 'easeInOut',
-        }}
-      />
-      <motion.div
-        className="absolute bottom-1/3 left-1/3 h-[400px] w-[400px] rounded-full bg-gradient-to-br from-primary/6 to-primary/2 dark:from-primary/4 dark:to-primary/1 blur-3xl"
-        animate={{
-          y: [0, 40, 0],
-          x: [0, -30, 0],
-          scale: [1, 1.15, 1],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 5,
         }}
       />
 
-      <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-background/70" />
+      {/* Blob rosso-arancio bottom-left */}
+      <motion.div
+        className="absolute bottom-[20%] left-[5%] h-[500px] w-[500px] rounded-full bg-gradient-to-br from-secondary/[0.10] via-secondary/[0.05] to-transparent dark:from-secondary/[0.07] dark:via-secondary/[0.03] blur-3xl"
+        animate={{
+          y: [0, 50, 0],
+          x: [0, -40, 0],
+          scale: [1, 1.12, 1],
+        }}
+        transition={{
+          duration: 32,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 6,
+        }}
+      />
+
+      {/* Accent geometrico sottile */}
+      <motion.div
+        className="absolute top-[40%] left-[50%] h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-gradient-to-br from-secondary/[0.08] to-transparent dark:from-secondary/[0.05] blur-2xl"
+        animate={{
+          rotate: [0, 180, 360],
+          scale: [1, 1.05, 1],
+        }}
+        transition={{
+          duration: 40,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+      />
+
+      {/* Vignette overlay */}
+      <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-background/80" />
     </div>
   )
 }

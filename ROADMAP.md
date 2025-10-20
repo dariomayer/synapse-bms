@@ -11,7 +11,7 @@ Un monorepo (pnpm) con:
 	•	Gateway universale per protocolli industriali (BACnet, Modbus, KNX)
 	•	Servizi MQTT / REST API
 	•	Simulatore di dispositivi (per test locali)
-	•	Storage (MongoDB) per punti, trend e configurazioni
+	•	Storage (PostgreSQL) per punti, trend e configurazioni
 	•	Auth (BetterAuth) + utenti
 	•	Accesso con ruoli e componenti frontend renderizzati in base al ruolo
 
@@ -31,20 +31,20 @@ Un monorepo (pnpm) con:
 
 📅 Roadmap (Step-by-Step)
 
-Organizzata in 5 fasi, ognuna autonoma, presentabile e pubblicabile su LinkedIn / GitHub.
+Organizzata in 5 fasi, ognuna autonoma.
 
 ⸻
 
 🟩 FASE 1 — Core Platform & Visual Dashboard
 
-Obiettivo: costruire la base MERN + dashboard moderna.
+Obiettivo: costruire la base PERN + dashboard moderna.
 Durata: 2 settimane
 Output visibile: una dashboard web funzionante con dati simulati.
 Attività:
 	•	Setup monorepo (pnpm, concurrently)
 	•	Backend REST + WebSocket con dati fake (temperature, umidità, presenza)
-	•	MongoDB schema per dispositivi e punti
-  •	Componenti frontend renderizzati in base al ruolo
+	•	PostgreSQL schema per dispositivi e punti
+  	•	Componenti frontend renderizzati in base al ruolo
 	•	React Dashboard: card per ogni “stanza”
 	•	Grafici live (Recharts / Chart.js)
 	•	Auth (BetterAuth) + utenti
@@ -68,7 +68,7 @@ Attività:
 
 🟨 FASE 3 — Modbus e KNX Gateway
 
-Obiettivo: dimostrare multi-protocollo.
+Obiettivo: aggiungere multi-protocollo.
 Durata: 3 settimane
 Attività:
 	•	Aggiungere driver modbus-serial (TCP simulation)
@@ -81,7 +81,7 @@ Attività:
 
 🟧 FASE 4 — Digital Twin 3D
 
-Obiettivo: creare un “wow effect” visivo.
+Obiettivo: creare la vista 3D.
 Durata: 2-3 settimane
 Attività:
 	•	Implementare un “floor plan” 3D (React + Three.js o Babylon.js)
@@ -94,7 +94,7 @@ Attività:
 
 🟥 FASE 5 — Cloud Integration & Analytics
 
-Obiettivo: mostrare pensiero architetturale da Solution Architect.
+Obiettivo: contenitorizzare tutto con Docker Compose e integrare con MQTT broker (Mosquitto / EMQX).
 Durata: 3 settimane
 Attività:
 	•	Contenitorizzare tutto con Docker Compose

@@ -27,7 +27,7 @@ export function CTASection() {
             href="https://github.com/dariopratola/synapse-bms"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+            className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-medium hover:bg-secondary/90 transition-colors"
           >
             <Github className="w-5 h-5" />
             {t('cta.github')}
