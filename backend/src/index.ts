@@ -5,6 +5,7 @@ import cors from 'cors';
 import { WebSocketServer } from 'ws';
 import { env } from './env';
 import { initDb, pool } from './db';
+import healthRoutes from './api/routes/health.routes';
 
 async function main() {
   await initDb();
@@ -13,18 +14,8 @@ async function main() {
   app.use(cors());
   app.use(express.json());
 
-  app.get('/health', (_req, res) => {
-    res.json({ status: 'ok', service: 'backend', env: env.NODE_ENV });
-  });
-
-  app.get('/db-health', async (_req, res) => {
-    try {
-      const r = await pool.query('SELECT NOW() as now');
-      res.json({ ok: true, now: r.rows[0]?.now });
-    } catch (err: any) {
-      res.status(500).json({ ok: false, error: err?.message ?? 'db error' });
-    }
-  });
+  // Routers
+  app.use('/', healthRoutes);
 
   const server = http.createServer(app);
 
@@ -41,6 +32,44 @@ async function main() {
     // eslint-disable-next-line no-console
     console.log(`API listening on http://${env.HOST}:${env.PORT}`);
   });
+
+  const gracefulShutdown = (signal: string) => {
+    // eslint-disable-next-line no-console
+    console.log(`\n${signal} received. Shutting down gracefully...`);
+    try {
+      wss.close(() => {
+        // eslint-disable-next-line no-console
+        console.log('WebSocket server closed');
+      });
+      server.close(async () => {
+        // eslint-disable-next-line no-console
+        console.log('HTTP server closed');
+        try {
+          await pool.end();
+          // eslint-disable-next-line no-console
+          console.log('Postgres pool closed');
+        } catch (e) {
+          // eslint-disable-next-line no-console
+          console.error('Error closing Postgres pool', e);
+        } finally {
+          process.exit(0);
+        }
+      });
+      // Force close lingering WS after timeout
+      setTimeout(() => {
+        wss.clients.forEach((client) => {
+          try { client.terminate(); } catch { /* ignore */ }
+        });
+      }, 1_000).unref();
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('Graceful shutdown error', e);
+      process.exit(1);
+    }
+  };
+
+  process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+  process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 }
 
 main().catch((err) => {
