@@ -13,6 +13,8 @@
     "start": "pnpm -r start",
     "db:generate": "pnpm --filter @synapse-bms/backend drizzle:generate",
     "db:migrate": "pnpm --filter @synapse-bms/backend drizzle:migrate",
-    "db:sync": "pnpm run db:generate && pnpm run db:migrate"
+    "db:sync": "pnpm run db:generate && pnpm run db:migrate",
+    "mcp:manual": "pnpm dlx @better-auth/cli mcp --manual",
+    "git:auto": "bash ./scripts/git_auto.sh"
   }
 }

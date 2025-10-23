@@ -5,17 +5,25 @@ import cors from 'cors';
 import { WebSocketServer } from 'ws';
 import { env } from './env';
 import { initDb, pool } from './db';
-import healthRoutes from './api/routes/health.routes';
+import apiRouter from './api/router';
+import { toNodeHandler } from 'better-auth/node';
+import { auth } from './auth';
 
 async function main() {
   await initDb();
 
   const app = express();
   app.use(cors());
+
+  // Better Auth handler MUST be mounted before express.json
+  // to avoid hanging requests from the client API
+  app.all('/api/auth/*', toNodeHandler(auth));
+
+  // Apply JSON parser after Better Auth or only to non-auth routes
   app.use(express.json());
 
   // Routers
-  app.use('/', healthRoutes);
+  app.use('/api/v1', apiRouter);
 
   const server = http.createServer(app);
 

@@ -2,3 +2,4 @@
 export * from './devices';
 export * from './points';
 export * from './trends';
+export * from './auth';

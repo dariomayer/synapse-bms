@@ -13,6 +13,7 @@ export const env = {
   PORT: Number(process.env.PORT ?? 4000),
   HOST: process.env.HOST ?? '0.0.0.0',
   APP_NAME: process.env.APP_NAME ?? 'synapse-bms-backend',
+  BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET ?? '',
   // Postgres external connection
   PG_HOST: process.env.POSTGRES_HOST ?? process.env.PGHOST ?? 'localhost',
   PG_PORT: Number(process.env.POSTGRES_PORT ?? process.env.PGPORT ?? 5432),

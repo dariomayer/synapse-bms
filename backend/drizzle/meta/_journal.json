@@ -15,6 +15,13 @@
       "when": 1761084159343,
       "tag": "0001_petite_wallflower",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1761242696686,
+      "tag": "0002_gigantic_marvel_zombies",
+      "breakpoints": true
     }
   ]
 }

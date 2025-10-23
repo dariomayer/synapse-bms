@@ -1,7 +1,7 @@
-// backend/src/api/controllers/health.controller.ts
+// backend/src/api/modules/health/controller.ts
 import { Request, Response } from 'express';
-import { env } from '../../env';
-import { pool } from '../../db';
+import { env } from '../../../env';
+import { pool } from '../../../db';
 
 export async function health(req: Request, res: Response) {
   res.json({ status: 'ok', service: 'backend', env: env.NODE_ENV });

@@ -1,6 +1,6 @@
-// backend/src/api/routes/health.routes.ts
+// backend/src/api/modules/health/route.ts
 import { Router } from 'express';
-import { health, dbHealth } from '../../api/controllers/health.controller';
+import { health, dbHealth } from './controller';
 
 const router = Router();
 
