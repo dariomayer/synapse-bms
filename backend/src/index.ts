@@ -6,8 +6,7 @@ import { WebSocketServer } from 'ws';
 import { env } from './env';
 import { initDb, pool } from './db';
 import apiRouter from './api/router';
-import { toNodeHandler } from 'better-auth/node';
-import { auth } from './auth';
+import authRouter from './api/modules/auth/route';
 
 async function main() {
   await initDb();
@@ -15,9 +14,8 @@ async function main() {
   const app = express();
   app.use(cors());
 
-  // Better Auth handler MUST be mounted before express.json
-  // to avoid hanging requests from the client API
-  app.all('/api/auth/*', toNodeHandler(auth));
+  // Mount auth router before express.json to avoid hanging requests
+  app.use('/api', authRouter);
 
   // Apply JSON parser after Better Auth or only to non-auth routes
   app.use(express.json());
