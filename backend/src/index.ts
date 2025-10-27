@@ -12,7 +12,20 @@ async function main() {
   await initDb();
 
   const app = express();
-  app.use(cors());
+  // CORS: consenti credenziali dall'origine del frontend e dal backend stesso
+  const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || 'http://localhost:5173'
+  const backendHost = env.HOST && env.HOST !== '0.0.0.0' ? env.HOST : 'localhost'
+  const BACKEND_ORIGIN_COMPUTED = `http://${backendHost}:${env.PORT}`
+  const allowedOrigins = [FRONTEND_ORIGIN, BACKEND_ORIGIN_COMPUTED]
+  const corsOptions: cors.CorsOptions = {
+    origin: allowedOrigins,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }
+  app.use(cors(corsOptions))
+  // Preflight per tutte le route, incluso Better Auth
+  app.options('*', cors(corsOptions))
 
   // Mount auth router before express.json to avoid hanging requests
   app.use('/api', authRouter);

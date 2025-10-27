@@ -13,7 +13,7 @@ import { auth } from '../../../auth';
  * - POST /sign-up/email
  * - POST /sign-in/email
  * - POST /sign-out
- * - GET  /session
+ * - GET  /get-session
  *
  * Riferimento schema DB (Drizzle) generato per Better Auth:
  * - user          → gestione profili utente (id, name, email, emailVerified, image, createdAt, updatedAt)

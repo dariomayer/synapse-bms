@@ -1,115 +1,146 @@
-// src/modules/auth/components/signup-form.tsx
+// Frontend/src/modules/auth/components/signup-form.tsx
 import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { cn } from "@/shared/lib/utils"
 import { Button } from "@/shared/ui/button"
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from "@/shared/ui/field"
 import { Input } from "@/shared/ui/input"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/shared/ui/form"
 import { apiSignUpEmail } from "@/modules/auth/lib/api"
+import { signupSchema, type SignupFormValues } from "@/modules/auth/lib/schemas"
 
 export function SignupForm({ className, ...props }: React.ComponentProps<"div">) {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [serverError, setServerError] = useState<string | null>(null)
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setError(null)
+  const form = useForm<SignupFormValues>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+  })
 
-    if (password !== confirmPassword) {
-      setError("Le password non corrispondono")
-      return
-    }
-
-    if (password.length < 8) {
-      setError("La password deve essere di almeno 8 caratteri")
-      return
-    }
-
+  async function onSubmit(values: SignupFormValues) {
+    setServerError(null)
     setLoading(true)
-    const { status } = await apiSignUpEmail({ email, password, name: name || undefined })
-    setLoading(false)
 
-    if (status === 200) {
-      window.location.href = "/login"
-    } else {
-      setError("Errore durante la registrazione. Riprova.")
+    try {
+      const { status } = await apiSignUpEmail({
+        email: values.email,
+        password: values.password,
+        name: values.name || undefined,
+      })
+
+      if (status === 200) {
+        window.location.href = "/dashboard"
+      } else {
+        setServerError("Errore durante la registrazione. Riprova.")
+      }
+    } catch (error) {
+      setServerError("Si è verificato un errore. Riprova più tardi.")
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <form onSubmit={onSubmit} className="space-y-4">
-        <FieldGroup>
-          <Field>
-            <FieldLabel htmlFor="name">Nome (opzionale)</FieldLabel>
-            <Input
-              id="name"
-              type="text"
-              placeholder="Mario Rossi"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nome (opzionale)</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="Mario Rossi"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    placeholder="email@esempio.it"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>
+                  Useremo questa email per contattarti. Non la condivideremo con nessuno.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </Field>
-          <Field>
-            <FieldLabel htmlFor="email">Email</FieldLabel>
-            <Input
-              id="email"
-              type="email"
-              placeholder="email@esempio.it"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <FieldDescription>
-              Useremo questa email per contattarti. Non la condivideremo con nessuno.
-            </FieldDescription>
-          </Field>
-          <Field>
-            <Field className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Field>
-                <FieldLabel htmlFor="password">Password</FieldLabel>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="confirm-password">Conferma Password</FieldLabel>
-                <Input
-                  id="confirm-password"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
-              </Field>
-            </Field>
-            <FieldDescription>Deve essere di almeno 8 caratteri.</FieldDescription>
-          </Field>
-          {error && (
-            <FieldDescription className="text-destructive">{error}</FieldDescription>
+
+            
+
+          <FormDescription>
+            La password deve contenere almeno 8 caratteri, una lettera maiuscola, una minuscola e un numero.
+          </FormDescription>
+
+          {serverError && (
+            <FormDescription className="text-destructive">
+              {serverError}
+            </FormDescription>
           )}
-          <Field>
-            <Button type="submit" disabled={loading} className="w-full">
-              {loading ? "Registrazione..." : "Crea Account"}
-            </Button>
-          </Field>
-          <FieldDescription className="text-center">
-            Hai già un account? <a href="/login" className="underline underline-offset-4">Accedi</a>
-          </FieldDescription>
-        </FieldGroup>
-      </form>
+
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full"
+          >
+            {loading ? "Registrazione..." : "Crea Account"}
+          </Button>
+
+          <FormDescription className="text-center">
+            Hai già un account?{" "}
+            <a
+              href="/login"
+              className="text-primary hover:text-primary/80 font-medium underline underline-offset-4 transition-colors"
+            >
+              Accedi
+            </a>
+          </FormDescription>
+        </form>
+      </Form>
     </div>
   )
 }
