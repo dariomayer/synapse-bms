@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { cn } from "@/shared/lib/utils"
-import { Button } from "@/shared/ui/button"
+import { ButtonWithSpinner } from "@/shared/ui/button-with-spinner"
 import { Input } from "@/shared/ui/input"
 import {
   Form,
@@ -44,10 +44,10 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
       if (status === 200) {
         window.location.href = "/dashboard"
       } else {
-        setServerError("Errore durante la registrazione. Riprova.")
+        setServerError("Error during registration. Please try again.")
       }
     } catch (error) {
-      setServerError("Si è verificato un errore. Riprova più tardi.")
+      setServerError("An error occurred. Please try again later.")
     } finally {
       setLoading(false)
     }
@@ -62,11 +62,11 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nome (opzionale)</FormLabel>
+                <FormLabel>Full name (optional)</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="Mario Rossi"
+                    placeholder="••••••••"
                     {...field}
                   />
                 </FormControl>
@@ -80,16 +80,16 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Email address</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="email@esempio.it"
+                    placeholder="your@email.com"
                     {...field}
                   />
                 </FormControl>
                 <FormDescription>
-                  Useremo questa email per contattarti. Non la condivideremo con nessuno.
+                  We'll use this email to contact you. We won't share it with anyone.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -101,7 +101,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Create a password</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
@@ -113,7 +113,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
             
 
           <FormDescription>
-            La password deve contenere almeno 8 caratteri, una lettera maiuscola, una minuscola e un numero.
+            Use at least 8 characters, one uppercase letter, one number, and one special character.
           </FormDescription>
 
           {serverError && (
@@ -122,23 +122,24 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
             </FormDescription>
           )}
 
-          <Button
+          <ButtonWithSpinner
             type="submit"
-            disabled={loading}
+            loading={loading}
+            loadingText="Creating account..."
             className="w-full"
           >
-            {loading ? "Registrazione..." : "Crea Account"}
-          </Button>
+            Create account
+          </ButtonWithSpinner>
 
-          <FormDescription className="text-center">
-            Hai già un account?{" "}
+          <div className="text-center text-sm text-muted-foreground">
+            Already have an account?{" "}
             <a
               href="/login"
-              className="text-primary hover:text-primary/80 font-medium underline underline-offset-4 transition-colors"
+              className="text-primary underline-offset-4 hover:underline"
             >
-              Accedi
+              Sign in
             </a>
-          </FormDescription>
+          </div>
         </form>
       </Form>
     </div>

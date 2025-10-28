@@ -5,7 +5,10 @@ import { SignupForm } from "@/modules/auth/components/signup-form"
 
 export default function SignupPage() {
   return (
-    <AuthShell title="Crea account" subtitle="Registrati con email e password">
+    <AuthShell
+      title="Create an account"
+      subtitle="Fill in the fields to get started"
+    >
       <SignupForm />
     </AuthShell>
   )

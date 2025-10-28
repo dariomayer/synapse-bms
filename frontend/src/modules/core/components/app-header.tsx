@@ -1,7 +1,7 @@
-// Frontend/src/modules/app/components/app-header.tsx
+// Frontend/src/modules/core/components/app-header.tsx
 import { useState } from "react"
 import { LogOut, User } from "lucide-react"
-import { Button } from "@/shared/ui/button"
+import { ButtonWithSpinner } from "@/shared/ui/button-with-spinner"
 import { apiSignOut } from "@/modules/auth/lib/api"
 import { useSession } from "@/modules/auth/hooks/use-session"
 
@@ -46,16 +46,17 @@ export function AppHeader() {
               </span>
             </div>
           )}
-          <Button
+          <ButtonWithSpinner
             variant="outline"
             size="sm"
             onClick={handleLogout}
-            disabled={loading}
+            loading={loading}
+            loadingText="Uscita..."
             className="gap-2"
           >
             <LogOut className="h-4 w-4" />
-            {loading ? "Uscita..." : "Logout"}
-          </Button>
+            Logout
+          </ButtonWithSpinner>
         </div>
       </div>
     </header>

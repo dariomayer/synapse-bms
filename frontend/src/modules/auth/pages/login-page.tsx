@@ -5,7 +5,7 @@ import { LoginForm } from "@/modules/auth/components/login-form"
 
 export default function LoginPage() {
   return (
-    <AuthShell title="Accedi" subtitle="Entra con email e password">
+    <AuthShell title="Sign In" subtitle="Enter your email and password to continue">
       <LoginForm />
     </AuthShell>
   )

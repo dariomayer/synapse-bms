@@ -7,12 +7,12 @@ import { z } from "zod"
 export const loginSchema = z.object({
   email: z
     .string()
-    .min(1, "L'email è obbligatoria")
-    .email("Inserisci un'email valida"),
+    .min(1, "Email is required")
+    .email("Please enter a valid email address"),
   password: z
     .string()
-    .min(1, "La password è obbligatoria")
-    .min(8, "La password deve essere di almeno 8 caratteri"),
+    .min(1, "Password is required")
+    .min(8, "Password must be at least 8 characters"),
 })
 
 export type LoginFormValues = z.infer<typeof loginSchema>
@@ -25,17 +25,16 @@ export const signupSchema = z
     name: z.string().optional(),
     email: z
       .string()
-      .min(1, "L'email è obbligatoria")
-      .email("Inserisci un'email valida"),
+      .min(1, "Email is required")
+      .email("Please enter a valid email address"),
     password: z
       .string()
-      .min(1, "La password è obbligatoria")
-      .min(8, "La password deve essere di almeno 8 caratteri")
+      .min(1, "Password is required")
+      .min(8, "Password must be at least 8 characters")
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-        "La password deve contenere almeno una lettera maiuscola, una minuscola e un numero"
+        "Password must contain at least one uppercase letter, one lowercase letter, and one number"
       ),
   })
-
 
 export type SignupFormValues = z.infer<typeof signupSchema>

@@ -1,6 +1,7 @@
-// Frontend/src/modules/auth/components/protected-route.tsx
+// Frontend/src/modules/core/components/protected-route.tsx
 import { useEffect } from "react"
 import { useSession } from "@/modules/auth/hooks/use-session"
+import { Spinner } from "@/shared/ui/spinner"
 
 interface ProtectedRouteProps {
   children: React.ReactNode
@@ -30,7 +31,7 @@ export function ProtectedRoute({ children, fallback }: ProtectedRouteProps) {
       fallback ?? (
         <div className="flex min-h-screen items-center justify-center">
           <div className="flex flex-col items-center gap-4">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+            <Spinner className="size-8" />
             <p className="text-sm text-muted-foreground">Caricamento...</p>
           </div>
         </div>

@@ -24,7 +24,7 @@ export function CTASection() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
           <a
-            href="https://github.com/dariopratola/synapse-bms"
+            href="https://github.com/dariomayer/synapse-bms"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
@@ -33,7 +33,7 @@ export function CTASection() {
             {t('cta.github')}
           </a>
           <a
-            href="https://github.com/dariopratola/synapse-bms#readme"
+            href="https://github.com/dariomayer/synapse-bms#readme"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border hover:bg-accent transition-colors"

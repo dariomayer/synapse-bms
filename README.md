@@ -52,7 +52,7 @@ Each module is built to reflect real-world BMS architectures — from field devi
 # Click the "Fork" button at the top of this repository
 
 # Option B: Clone directly
-git clone https://github.com/dariopratola/synapse-bms.git
+git clone https://github.com/dariomayer/synapse-bms.git
 cd synapse-bms
 ```
 

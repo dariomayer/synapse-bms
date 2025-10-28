@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { cn } from "@/shared/lib/utils"
-import { Button } from "@/shared/ui/button"
+import { ButtonWithSpinner } from "@/shared/ui/button-with-spinner"
 import { Input } from "@/shared/ui/input"
 import {
   Form,
@@ -46,11 +46,11 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
         window.location.href = "/dashboard"
       } else {
         console.log('[LoginForm] Login fallito:', status)
-        setServerError("Credenziali non valide. Riprova.")
+        setServerError("Invalid credentials. Please try again.")
       }
     } catch (error) {
       console.error('[LoginForm] Errore login:', error)
-      setServerError("Si è verificato un errore. Riprova più tardi.")
+      setServerError("An error occurred. Please try again later.")
     } finally {
       setLoading(false)
     }
@@ -65,11 +65,11 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Email address</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="m@example.com"
+                    placeholder="your@email.com"
                     {...field}
                   />
                 </FormControl>
@@ -85,7 +85,11 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} />
+                  <Input
+                    type="password"
+                    placeholder="••••••••"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -98,23 +102,24 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
             </FormDescription>
           )}
 
-          <Button
+          <ButtonWithSpinner
             type="submit"
-            disabled={loading}
+            loading={loading}
+            loadingText="Signing in..."
             className="w-full"
           >
-            {loading ? "Accesso..." : "Accedi"}
-          </Button>
+            Sign In
+          </ButtonWithSpinner>
 
-          <FormDescription className="text-center">
-            Non hai un account?{" "}
+          <div className="text-center text-sm text-muted-foreground">
+            Don't have an account?{" "}
             <a
               href="/signup"
-              className="text-primary hover:text-primary/80 font-medium underline underline-offset-4 transition-colors"
+              className="text-primary underline-offset-4 hover:underline"
             >
-              Registrati
+              Sign up
             </a>
-          </FormDescription>
+          </div>
         </form>
       </Form>
     </div>
